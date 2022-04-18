@@ -6,9 +6,10 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/18 03:18:53 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/18 08:31:30 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "mayhelp.hpp"
 #include "config.hpp"
@@ -17,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstddef>
 Config::Config()
 {
     ;
@@ -34,8 +36,15 @@ Config::Config(std::string s)
        std::stringstream input(str);
        while(std::getline(input, str))
        {
-           if (Help::kaynadieze(str))
+            str.erase(0, str.find_first_not_of("\t {}"));
+            str.erase(str.find_last_not_of("\t {}") + 1);
+            if (Help::kaynadieze(str))
                 continue;
+            size_t i = str.find_first_of('#');
+            str = str.substr(0,i);
+           
+            str.erase(0, str.find_first_not_of("\t {}"));
+            str.erase(str.find_last_not_of("\t {}") + 1);
             parse_server(str);
        }
    }
@@ -48,7 +57,7 @@ void Config::initialize(int i)
     srv[i].root = "NULL";
     srv[i].port = -1;
     srv[i].bodySize = -1;
-    srv[i].error_page = "NULL";
+    srv[i].error_page = "../error_pages/index.html";
 }
 
 void Config::Linit(location *loc)
@@ -62,18 +71,41 @@ void Config::Linit(location *loc)
     loc->extension = "NULL";   
 }
 
-void Config::parse_server(std::string inputfile)
+void Config::parse_server(std::string &inputfile)
 {
-    std::cout << inputfile << std::endl;
-    std::string str;
+    //std::cout << inputfile << std::endl;
+   // std::string str;
+    //initialize(2);
     std::string str2;
     std::string str3;
-    if(inputfile.find(";") != std::string::npos)
+    server serv;
+    if(inputfile[0] == '[')
     {
-        str = inputfile.substr(inputfile.find_first_of(";")+1, inputfile.length() - 1);
-       // std::cout << "-> " << str << std::endl;
+        int len = inputfile.length() - 1; // retrieve the "]"
+        if (inputfile[len] != ']')
+        {
+            std::cout << "makamlash ] dyal lhost" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        else
+        {
+            
+            std::string host = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
+            serv.host = host;
+            srv.push_back(serv);
+            initialize(shhalmnserver);
+            
+            std::cout << "smit server " << serv.host << std::endl; 
+        }
+        shhalmnserver++;
     }
-    
+    else
+    {
+        std::cout << " shi switch case khelaha 7akim" << std::endl; // config dyal kola haja west host
+        std::cout << " -> " << serv.host << std::endl;
+    }
+    //std::cout << "CH7AL MN SERVER " << shhalmnserver << std::endl;
+  
 }
 Config::~Config()
 {

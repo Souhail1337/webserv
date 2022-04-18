@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:38:57 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/18 03:03:54 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/18 08:03:36 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ class Config
         //start parsing had zbi;
         void initialize(int i);  
         void Linit(location *loc);      
-        void parse_server(std::string inputfile);
+        void parse_server(std::string &inputfile);
         void parse_location(std::string loc);
+        unsigned int shhalmnserver ; 
 };
 
 

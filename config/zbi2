@@ -1,0 +1,28 @@
+[zbi]
+host = 0.0.0.0;
+port = 8080;
+root = /Users/sel-fcht/Desktop/WEBS/default.html;
+bodysize_limit = 20;
+location= {path =/ , methods = GET , root = /Users/sel-fcht/Desktop/WEBS, auto-index=on};
+
+
+[zbi2]
+host = 0.0.0.0;
+port = 8081;
+root = /Users/sel-fcht/Desktop/WEBS/default.html;
+default_error_page = /error_pages/index.html
+bodysize_limit = 400;
+location={path=/ , methods = DELETE, root=/Users/sel-fcht/Desktop/WEBS, auto-index=off, bodysize_limit=1000};
+location={path=/zbi, methods = GET/POST/DELETE, root = /Users/sel-fcht/Desktop/WEBS/ZBI, auto-index=on, cgi_path=/usr/bin/php, extension=php};
+location={path=/shihaja, methods = GET/POST, root=/Users/sel-fcht/Desktop/WEBS/Images/image.jpg, auto-inde=off};
+location={path=/Upload, methods=GET/POST, root=/Users/sel-fcht/Desktop/WEBS/, auto-index=on};
+location -> { should throw an error
+
+
+//practising had zbi
+//vector of servers, each server has its own locations, multiple location in 1 server, multiple location in another server......
+// handling '
+//projet dyal zab
+// parsing the request jaya nsha3lah
+// li dar location west location mo 97ba
+//
