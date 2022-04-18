@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/18 08:31:30 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/18 08:43:41 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void Config::parse_server(std::string &inputfile)
         else
         {
             
-            std::string host = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
-            serv.host = host;
+            std::string name = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
+            serv.name = name;
             srv.push_back(serv);
             initialize(shhalmnserver);
             
@@ -101,9 +101,33 @@ void Config::parse_server(std::string &inputfile)
     }
     else
     {
-        std::cout << " shi switch case khelaha 7akim" << std::endl; // config dyal kola haja west host
-        std::cout << " -> " << serv.host << std::endl;
+       switch(inputfile[0])
+       {
+            case 'h':
+            {
+
+            }
+            case 'p':
+            {   
+                
+            }
+            case 'd':
+            {   
+
+            }
+            case 'b':
+            {   
+                
+            }
+            case 'l':
+            {
+                parse_location();      
+            }
+        }
+        default:
+            ...
     }
+}
     //std::cout << "CH7AL MN SERVER " << shhalmnserver << std::endl;
   
 }
