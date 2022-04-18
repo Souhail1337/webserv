@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-#define PORT 8080
+#define PORT 8081
 
 
 int main(int argc, char **argv)
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     int opt = 1;
     int addrlen = sizeof(address);
 
-    char *hello = "HTTP/1.1 200 OK\r\n\r\nHello from server";
+    char *hello = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 17\n\nHello from server";
 
 
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) <= 0)
@@ -39,21 +39,20 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
     
-    
+    while(1)
+    {
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0 )
     {
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    while(1)
-    {
         printf("connection approved on port 8080\n");
         char buffer[1024] = {0};
         int vl  = read(new_socket, buffer, 1024);
         if (vl == 0)
             break;
         printf("zbi : %s\n",buffer);
-        send(new_socket, "zebiiii" , 8,0);
+        write(new_socket, hello, strlen(hello));
     }
 
 printf("done");
