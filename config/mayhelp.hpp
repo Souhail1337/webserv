@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 02:06:49 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/18 03:16:04 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/18 21:42:50 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,18 @@ class Help
                 i++;
             }
             return (i);
-        }              
+        }
+		size_t postitionequal(std::string s)
+		{
+			size_t i = 0;
+			while(s[i])
+			{
+				if (s[i] == '=')
+					return i;
+				i++;
+			}
+			return (i);
+		}    
 };
 
 

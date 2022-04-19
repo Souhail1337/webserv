@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 02:56:53 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/18 08:32:26 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/18 21:52:55 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ int main()
 {
     std::string str = "../config.ini";
     Config conf(str);
-    
 }
 
