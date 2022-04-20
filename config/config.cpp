@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/19 11:32:42 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/20 07:46:52 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ Config::Config(std::string s)
 }
 void Config::initialize(int i)
 {
-    srv[i].name = "NULL";
     srv[i].host = "NULL";
     srv[i].root = "NULL";
     srv[i].port = -1;
@@ -77,28 +76,29 @@ void Config::parse_server(std::string &inputfile)
     //std::cout << inputfile << std::endl;
    // std::string str;
     //initialize(2);
+    
     std::string str2;
     std::string str3;
     server serv;
+    
     if(inputfile[0] == '[')
     {
         int len = inputfile.length() - 1; // retrieve the "]"
+        std::string name = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
         if (inputfile[len] != ']')
         {
             std::cout << "makamlash ] dyal lhost" << std::endl;
             exit(EXIT_FAILURE);
         }
-        else
+        else if (name != "end")
         {
-            
-            std::string name = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
             serv.name = name;
             srv.push_back(serv);
             initialize(shhalmnserver);
-            
-            std::cout << "smit server " << serv.name << std::endl; 
+            std::cout << "smit server " << srv[shhalmnserver].name<< std::endl; 
         }
-        shhalmnserver++;
+        else
+            shhalmnserver++;
     }
     else
     {
@@ -118,7 +118,7 @@ void Config::parse_server(std::string &inputfile)
             case 'p':
             {
                 std::string nameof = inputfile.substr(0, inputfile.find_first_of("="));
-                if (nameof == "port")
+                if (nameof == "port" && srv[shhalmnserver].port == -1)
                 {    
                     std::string port = inputfile.substr(inputfile.find("port=") + 5, inputfile.length()- 5);
                     srv[shhalmnserver].port = Help::atoi(port.c_str());
@@ -146,8 +146,7 @@ void Config::parse_server(std::string &inputfile)
             {
         //        parse_location();      
             }
-        }
-      
+        }  
     }
 }
     //std::cout << "CH7AL MN SERVER " << shhalmnserver << std::endl;
