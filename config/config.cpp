@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/20 07:46:52 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/20 09:28:31 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,27 +120,50 @@ void Config::parse_server(std::string &inputfile)
                 std::string nameof = inputfile.substr(0, inputfile.find_first_of("="));
                 if (nameof == "port" && srv[shhalmnserver].port == -1)
                 {    
-                    std::string port = inputfile.substr(inputfile.find("port=") + 5, inputfile.length()- 5);
+                    std::string port = inputfile.substr(inputfile.find("port=") + 5, inputfile.length()- 4);
+                    port = port.substr(0,port.length()-1);//removiw ;
+                    if(Help::atoi(port.c_str()) <= 0 || Help::atoi(port.c_str())> 9999 )
+                    {
+                        std::cout << "wrong port number" << std::endl;
+                        exit (1);
+                    }
                     srv[shhalmnserver].port = Help::atoi(port.c_str());
-                                                                                            //handle ra9m dlport later 
+                                                                                       //handle ra9m dlport later 
                     std::cout << "smit port :" << port << std::endl;
                 }
-                // else
-                // {
-                //     std::cout << "kteb port mzyan" << std::endl;
-                //     exit(0);
-                // }
             }
             case 'd':
             {   
-              //  std::string erorpage = inputfile.substr(inputfile.find("default_error_page=") + 20 ,inputfile.length() - 20);
-                //serv.error_page = erorpage;
-            //    std::cout << "error page " << srv[shhalmnserver].error_page << std::endl;
+                std::string er = inputfile.substr(0, inputfile.find_first_of("="));
+                if (er == "default_error_page")
+                {
+                    std::string erorpage = inputfile.substr(inputfile.find("default_error_page=") + 19 ,inputfile.length() - 19);
+                    srv[shhalmnserver].error_page = erorpage;
+                    std::cout << "error page :" << erorpage << std::endl;
+                }
+            }
+            case 'r':
+            {
+                std::string root = inputfile.substr(0, inputfile.find_first_of("="));
+                if (root == "root")
+                {
+                    std::string root1 = inputfile.substr(inputfile.find("root=") + 5, inputfile.length() - 5);
+                    root1 = root1.substr(0,root1.length() -1);
+                    srv[shhalmnserver].root = root1;
+                    std::cout << "root =" << srv[shhalmnserver].root << std::endl;
+                }
             }
 
             case 'b':
             {   
-                
+                std::string body = inputfile.substr(0, inputfile.find_first_of("="));
+                if (body == "bodysize_limit")
+                {
+                    std::string body1 = inputfile.substr(inputfile.find("bodysize_limit=")+15, inputfile.length()-15);
+                    body1 = body1.substr(0,body1.length() -1);
+                    srv[shhalmnserver].bodySize = Help::atoi(body1.c_str());
+                    std::cout << "body size limit = " << srv[shhalmnserver].bodySize << std::endl;
+                }
             }
             case 'l':
             {
@@ -149,7 +172,6 @@ void Config::parse_server(std::string &inputfile)
         }  
     }
 }
-    //std::cout << "CH7AL MN SERVER " << shhalmnserver << std::endl;
   
 Config::~Config()
 {
