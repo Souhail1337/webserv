@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/20 09:28:31 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/20 10:20:02 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,14 @@ void Config::parse_server(std::string &inputfile)
             }
             case 'l':
             {
-        //        parse_location();      
+                std::string location = inputfile.substr(0, inputfile.find_first_of("="));
+                if (location == "location")
+                {
+                    std::string loc = inputfile.substr(inputfile.find("location={") +10, inputfile.length() -10);
+                    loc = loc.substr(0,inputfile.length() - 1);
+                    std::cout << "location :" << loc << std::endl;
+                    parse_location(loc, "",");
+                }
             }
         }  
     }
