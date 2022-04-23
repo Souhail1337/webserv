@@ -1,0 +1,24 @@
+smit server zbi
+smit lhpost  0.0.0.1
+smit port : 8080
+error page :/error_pages/index.html
+root = /Users/sel-fcht/Desktop/WEBS/default.html
+body size limit = 20
+server : 0
+u are in parse loca :20
+smit server zbi2
+smit lhpost  0.0.0.0
+smit port : 8081
+error page :/error_pages/index.html
+root =/Users/sel-fcht/Desktop/WEBS/default.html
+body size limit = 400
+server : 1
+u are in parse loca :400
+server : 1
+u are in parse loca :400
+server : 1
+u are in parse loca :400
+server : 1
+u are in parse loca :400
+server : 1
+u are in parse loca :400

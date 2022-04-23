@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/20 10:20:02 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/23 16:46:14 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,12 +172,24 @@ void Config::parse_server(std::string &inputfile)
                 {
                     std::string loc = inputfile.substr(inputfile.find("location={") +10, inputfile.length() -10);
                     loc = loc.substr(0,inputfile.length() - 1);
-                    std::cout << "location :" << loc << std::endl;
-                    parse_location(loc, "",");
+                  //  std::cout << "location :" << loc << std::endl;
+                    parse_location(loc, ",");
                 }
             }
         }  
     }
+}
+void Config::parse_location(std::string &loc, const std::string &chars)
+{
+    //std::cout << "location :"<< loc << std::endl;
+    //std::cout << "characters :" << chars << std::endl;
+    location loca;
+    Linit(&loca);
+    loca.bodySize = srv[shhalmnserver].bodySize;
+    std::cout << "server : " << shhalmnserver << std::endl;
+    std::cout << "u are in parse loca :" << loca.bodySize<< std::endl;
+    
+
 }
   
 Config::~Config()
