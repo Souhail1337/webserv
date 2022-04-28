@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/23 16:46:14 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/28 04:24:22 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,17 @@ void Config::parse_server(std::string &inputfile)
                     std::cout << "body size limit = " << srv[shhalmnserver].bodySize << std::endl;
                 }
             }
+            case 'i':
+            {
+                std::string inde = inputfile.substr(0, inputfile.find_first_of("="));
+                if (inde == "index")
+                {
+                    std::string indexx = inputfile.substr(inputfile.find("index=") + 6, inputfile.length() - 6);
+                    indexx = indexx.substr(0, indexx.length() - 1);
+                    srv[shhalmnserver].index = indexx;
+                    std::cout << "index: " <<  indexx<<std::endl;
+                }
+            }
             case 'l':
             {
                 std::string location = inputfile.substr(0, inputfile.find_first_of("="));
@@ -179,20 +190,86 @@ void Config::parse_server(std::string &inputfile)
         }  
     }
 }
+
+std::string removeacc(std::string loc)
+{
+    std::string str;
+    str = loc.substr(loc.find_first_of("{") + 1 , loc.find_last_of("}") - 2);
+    std::cout << " hihi : |" << str << std::endl;
+    return str; 
+}
+
 void Config::parse_location(std::string &loc, const std::string &chars)
 {
     //std::cout << "location :"<< loc << std::endl;
     //std::cout << "characters :" << chars << std::endl;
     location loca;
+    std::string vir;
+    std::string str;
+    std::vector<std::string> strs; // where to stock parametres of the location;
     Linit(&loca);
     loca.bodySize = srv[shhalmnserver].bodySize;
-    std::cout << "server : " << shhalmnserver << std::endl;
-    std::cout << "u are in parse loca :" << loca.bodySize<< std::endl;
-    
+    loca.index = srv[shhalmnserver].index;
+    loc = removeacc(loc);
+    int i;
+    int virg = 0;
+    while(i < loc.length())
+    {
+        if(loc[i]== ',')
+        {
+            virg++;
+            i++;
+        }
+        else
+            i++;
+        //std::cout << " virg" << virg << std::endl;
+    }
+    shhalmnlocation = i;
+    i = 0;
+    virg = 0;
+    while((i = loc.find_first_of(",", virg)) != std::string::npos)
+    {
+        if (i > virg)
+        {
+            str = loc.substr(virg, i - virg);
+            std::cout << "string is |" << str << "|" << std::endl;
+            strs.push_back(str);
+        }
+        virg = i + 1;
+    }
+    int x = 0;
+    while(x < strs.size())
+    {
+        switch (strs[x][0])
+        {
+            case 'p':
+            {
+                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                std::cout << "EEE " << nameof << std::endl;
+            }
+            //ase 'm':
+            //
+            //   
+            //
+            //ase 'r':
+            //
+            //   
+            //
+            //ase 'a':
+            //
+            //   
+            //
+            //ase 'b':
+            //
+            //   
+            //
+            //ase ''
+        }
+    }
 
 }
   
 Config::~Config()
 {
-    ;
+    
 }

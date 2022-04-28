@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:38:57 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/20 22:06:43 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/28 04:17:25 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class Config
             std::string root;
             bool autoind;
             int bodySize;
+            std::string index;
             std::string cgi_path;
             std::string extension;
             // some of those are optional but still mzyan tziddhum ..
@@ -45,6 +46,7 @@ class Config
             std::string root;
             int port;
             int bodySize;
+            std::string index;
             std::string error_page;
             std::vector<location> locations;
         };
@@ -57,6 +59,7 @@ class Config
         void parse_server(std::string &inputfile);
         void parse_location(std::string &loc,const std::string &chars);
         unsigned int shhalmnserver ; 
+        unsigned int shhalmnlocation;
 };
 
 
