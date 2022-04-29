@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:38:57 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/28 04:17:25 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/28 23:21:23 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Config
             std::string index;
             std::string cgi_path;
             std::string extension;
+            std::string allowedMethods;
             // some of those are optional but still mzyan tziddhum ..
         };
 

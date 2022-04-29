@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/28 04:24:22 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/04/28 23:32:08 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void Config::Linit(location *loc)
     loc->bodySize = -1;
     loc->cgi_path = "NULL";
     loc->extension = "NULL";   
+    loc->allowedMethods = "NULL";
 }
 
 void Config::parse_server(std::string &inputfile)
@@ -237,28 +238,66 @@ void Config::parse_location(std::string &loc, const std::string &chars)
         }
         virg = i + 1;
     }
-    int x = 0;
-    while(x < strs.size())
+    int x = -1;
+    while(++x < strs.size())
     {
         switch (strs[x][0])
         {
             case 'p':
             {
-                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
-                std::cout << "EEE " << nameof << std::endl;
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                    if (nameof == "path" && loca.path == "NULL")
+                    {
+                        str = strs[x].substr(strs[x].find("path=")+5, strs[x].length());
+                        std::cout << "path = "<< str<< std::endl; 
+                        loca.path = str;
+                    }
             }
-            //ase 'm':
-            //
-            //   
-            //
-            //ase 'r':
-            //
-            //   
-            //
-            //ase 'a':
-            //
-            //   
-            //
+            case 'm':
+            {
+            std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+            if (nameof == "methods" && loca.method == "NULL")
+                {
+                str = strs[x].substr(strs[x].find("methods=") + 8, strs[x].length());
+                std::cout << "methods =" << str << std::endl;
+               }       
+            }
+            case 'r':
+            {
+                std::string nameof  = strs[x].substr(0, strs[x].find_first_of("="));
+                if (nameof == "root" && loca.root == "NULL")
+                {
+                    str = strs[x].substr(strs[x].find("root=") + 5, strs[x].length());
+                    std::cout << "root :" << str << std::endl; 
+                }
+            }
+            case 'a':
+            {
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                if (nameof == "auto-index")
+                {
+                    std::cout << "allowed " << std::endl;
+                }
+                if (nameof == "allowed-methods")
+                {
+                    if (loca.allowedMethods == "NULL")
+                    {
+                        str = strs[x].substr(strs[x].find("allowed-methods=") + 16, strs[x].length());
+                        std::cout << "allowed methods = |" << str << "|" << std::endl;
+                        
+                    }
+                    
+                }
+            }
+            case 'e':
+            {
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                if (nameof == "extension" && loca.extension  == "NULL")
+                {
+                    str = strs[x].substr(strs[x].find("extension=") +10, strs[x].length());
+                    std::cout << "extension : " << str << std::endl;
+                }
+            }
             //ase 'b':
             //
             //   

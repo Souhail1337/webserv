@@ -1,0 +1,55 @@
+smit server zbi
+smit lhpost  0.0.0.1
+smit port : 8080
+error page :/error_pages/index.html
+root = /Users/sel-fcht/Desktop/WEBS/default.html
+body size limit = 20
+index: 
+ hihi : |path=/a ,methods = GET ,root = /Users/sel-fcht/Desktop/WEBS/ ,auto-index=on ,bodysize_limit = 200
+string is |path=/a |
+string is |methods = GET |
+string is |root = /Users/sel-fcht/Desktop/WEBS/ |
+string is |auto-index=on |
+path = /a 
+allowed 
+smit server zbi2
+smit lhpost  0.0.0.0
+smit port : 8081
+error page :/error_pages/index.html
+root =/Users/sel-fcht/Desktop/WEBS/default.html
+body size limit = 400
+ hihi : |path=/aa ,methods = GET/DELETE,root=/Users/sel-fcht/Desktop/WEBS,auto-index=off, bodysize_limit=1000
+string is |path=/aa |
+string is |methods = GET/DELETE|
+string is |root=/Users/sel-fcht/Desktop/WEBS|
+string is |auto-index=off|
+path = /aa 
+allowed 
+ hihi : |path=/zbi,methods = GET/POST/DELETE,root = /Users/sel-fcht/Desktop/WEBS/ZBI, auto-index=on,bodysize_limit=1000, cgi_path=/usr/bin/php, extension=php
+string is |path=/zbi|
+string is |methods = GET/POST/DELETE|
+string is |root = /Users/sel-fcht/Desktop/WEBS/ZBI|
+string is | auto-index=on|
+string is |bodysize_limit=1000|
+string is | cgi_path=/usr/bin/php|
+path = /zbi
+ hihi : |path=/shihaja,methods = GET/POST,root=/Users/sel-fcht/Desktop/WEBS/Images/image.jpg,auto-index=off
+string is |path=/shihaja|
+string is |methods = GET/POST|
+string is |root=/Users/sel-fcht/Desktop/WEBS/Images/image.jpg|
+path = /shihaja
+ hihi : |path=/Upload,methods=GET/POST,root=/Users/sel-fcht/Desktop/WEBS/,auto-index=on
+string is |path=/Upload|
+string is |methods=GET/POST|
+string is |root=/Users/sel-fcht/Desktop/WEBS/|
+path = /Upload
+methods =GET/POST
+ hihi : |path=/zbi/zbha,methods=GET/POST/DELETE,root=/Users/sel-fcht/Desktop/WEBS/error-pages/,auto-index=off,allowed-methods =man3rf, index=/root
+string is |path=/zbi/zbha|
+string is |methods=GET/POST/DELETE|
+string is |root=/Users/sel-fcht/Desktop/WEBS/error-pages/|
+string is |auto-index=off|
+string is |allowed-methods =man3rf|
+path = /zbi/zbha
+methods =GET/POST/DELETE
+allowed 
