@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+this ois only a test
 
 #include "mayhelp.hpp"
 #include "config.hpp"
