@@ -6,11 +6,9 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/28 23:32:08 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:47:44 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-this ois only a test
 
 #include "mayhelp.hpp"
 #include "config.hpp"
@@ -66,11 +64,12 @@ void Config::Linit(location *loc)
     loc->path = "NULL";
     loc->method = "NULL";
     loc->root = " NULL";
-    loc->autoind = false;
+    loc->autoind = "NULL";
     loc->bodySize = -1;
     loc->cgi_path = "NULL";
     loc->extension = "NULL";   
     loc->allowedMethods = "NULL";
+    loc->index = "NULL";
 }
 
 void Config::parse_server(std::string &inputfile)
@@ -89,7 +88,7 @@ void Config::parse_server(std::string &inputfile)
         std::string name = inputfile.substr(inputfile.find("[") + 1, inputfile.find("]") - 1);
         if (inputfile[len] != ']')
         {
-            std::cout << "makamlash ] dyal lhost" << std::endl;
+          //  std::cout << "makamlash ] dyal lhost" << std::endl;
             exit(EXIT_FAILURE);
         }
         else if (name != "end")
@@ -97,7 +96,7 @@ void Config::parse_server(std::string &inputfile)
             serv.name = name;
             srv.push_back(serv);
             initialize(shhalmnserver);
-            std::cout << "smit server " << srv[shhalmnserver].name<< std::endl; 
+           // std::cout << "smit server " << srv[shhalmnserver].name<< std::endl; 
         }
         else
             shhalmnserver++;
@@ -113,7 +112,7 @@ void Config::parse_server(std::string &inputfile)
                 if (zb == "host")
                 {
                     std::string host = inputfile.substr(inputfile.find("host =") + 7 , inputfile.length() - 7);
-                    std::cout << "smit lhpost  " << host << std::endl; 
+                 //   std::cout << "smit lhpost  " << host << std::endl; 
                     srv[shhalmnserver].host = host;
                 }
             }
@@ -126,12 +125,12 @@ void Config::parse_server(std::string &inputfile)
                     port = port.substr(0,port.length()-1);//removiw ;
                     if(Help::atoi(port.c_str()) <= 0 || Help::atoi(port.c_str())> 9999 )
                     {
-                        std::cout << "wrong port number" << std::endl;
+                 //       std::cout << "wrong port number" << std::endl;
                         exit (1);
                     }
                     srv[shhalmnserver].port = Help::atoi(port.c_str());
                                                                                        //handle ra9m dlport later 
-                    std::cout << "smit port :" << port << std::endl;
+                  //  std::cout << "smit port :" << port << std::endl;
                 }
             }
             case 'd':
@@ -141,7 +140,7 @@ void Config::parse_server(std::string &inputfile)
                 {
                     std::string erorpage = inputfile.substr(inputfile.find("default_error_page=") + 19 ,inputfile.length() - 19);
                     srv[shhalmnserver].error_page = erorpage;
-                    std::cout << "error page :" << erorpage << std::endl;
+                  //  std::cout << "error page :" << erorpage << std::endl;
                 }
             }
             case 'r':
@@ -152,7 +151,7 @@ void Config::parse_server(std::string &inputfile)
                     std::string root1 = inputfile.substr(inputfile.find("root=") + 5, inputfile.length() - 5);
                     root1 = root1.substr(0,root1.length() -1);
                     srv[shhalmnserver].root = root1;
-                    std::cout << "root =" << srv[shhalmnserver].root << std::endl;
+                  //  std::cout << "root =" << srv[shhalmnserver].root << std::endl;
                 }
             }
 
@@ -164,7 +163,7 @@ void Config::parse_server(std::string &inputfile)
                     std::string body1 = inputfile.substr(inputfile.find("bodysize_limit=")+15, inputfile.length()-15);
                     body1 = body1.substr(0,body1.length() -1);
                     srv[shhalmnserver].bodySize = Help::atoi(body1.c_str());
-                    std::cout << "body size limit = " << srv[shhalmnserver].bodySize << std::endl;
+                  //  std::cout << "body size limit = " << srv[shhalmnserver].bodySize << std::endl;
                 }
             }
             case 'i':
@@ -175,7 +174,7 @@ void Config::parse_server(std::string &inputfile)
                     std::string indexx = inputfile.substr(inputfile.find("index=") + 6, inputfile.length() - 6);
                     indexx = indexx.substr(0, indexx.length() - 1);
                     srv[shhalmnserver].index = indexx;
-                    std::cout << "index: " <<  indexx<<std::endl;
+                 //   std::cout << "index: " <<  indexx<<std::endl;
                 }
             }
             case 'l':
@@ -197,7 +196,7 @@ std::string removeacc(std::string loc)
 {
     std::string str;
     str = loc.substr(loc.find_first_of("{") + 1 , loc.find_last_of("}") - 2);
-    std::cout << " hihi : |" << str << std::endl;
+    //std::cout << " hihi : |" << str << std::endl;
     return str; 
 }
 
@@ -234,7 +233,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
         if (i > virg)
         {
             str = loc.substr(virg, i - virg);
-            std::cout << "string is |" << str << "|" << std::endl;
+         //   std::cout << "string is |" << str << "|" << std::endl;
             strs.push_back(str);
         }
         virg = i + 1;
@@ -268,24 +267,27 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 std::string nameof  = strs[x].substr(0, strs[x].find_first_of("="));
                 if (nameof == "root" && loca.root == "NULL")
                 {
-                    str = strs[x].substr(strs[x].find("root=") + 5, strs[x].length());
+                    str = strs[x].substr(strs[x].find("root=")+ 5, strs[x].length());
                     std::cout << "root :" << str << std::endl; 
+                    
                 }
             }
             case 'a':
             {
                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
-                if (nameof == "auto-index")
+                if (nameof == "auto-index" && loca.autoind == "NULL")
                 {
-                    std::cout << "allowed " << std::endl;
+                    str = strs[x].substr(strs[x].find("auto-index=")+ 11, strs[x].length());
+                    std::cout << "auto index is " << str << std::endl;
+                    loca.autoind = str; 
+                    
                 }
                 if (nameof == "allowed-methods")
                 {
                     if (loca.allowedMethods == "NULL")
                     {
                         str = strs[x].substr(strs[x].find("allowed-methods=") + 16, strs[x].length());
-                        std::cout << "allowed methods = |" << str << "|" << std::endl;
-                        
+                     //   std::cout << "allowed methods = |" << str << "|" << std::endl;
                     }
                     
                 }
@@ -296,14 +298,29 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 if (nameof == "extension" && loca.extension  == "NULL")
                 {
                     str = strs[x].substr(strs[x].find("extension=") +10, strs[x].length());
-                    std::cout << "extension : " << str << std::endl;
+                //    std::cout << "extension : " << str << std::endl;
+                    loca.extension = str;
                 }
             }
-            //ase 'b':
-            //
-            //   
-            //
-            //ase ''
+            case 'b':
+            {
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                if (nameof == "bodysize_limt" && loca.bodySize == -1)
+                {
+                    str = strs[x].substr(strs[x].find("bodysize_limit=") + 15, strs[x].length());
+                    loca.bodySize = Help::atoi(str.c_str());
+                }
+            }
+            case 'i':
+            {
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+                if (nameof == "index" && loca.index == "NULL")
+                {
+                    str = strs[x].substr(strs[x].find("index=") + 6, strs[x].length());
+                //    std::cout << "index = " << str << std::endl;
+                    loca.index = str;
+                }
+            }
         }
     }
 

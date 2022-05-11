@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:38:57 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/04/28 23:21:23 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:33:25 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Config
             std::string path;
             std::string method;
             std::string root;
-            bool autoind;
+            std::string autoind;
             int bodySize;
             std::string index;
             std::string cgi_path;
