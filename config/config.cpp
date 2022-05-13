@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/05/13 04:32:10 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/13 04:34:00 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                     }
                 }
             }
-            case 'e':π∏
+            case 'e':
             {
                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
                 if (nameof == "extension" && loca.extension  == "NULL")
