@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/05/11 18:47:44 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/13 04:32:10 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void Config::Linit(location *loc)
 {
     loc->path = "NULL";
     loc->method = "NULL";
-    loc->root = " NULL";
+    loc->root = "NULL";
     loc->autoind = "NULL";
     loc->bodySize = -1;
     loc->cgi_path = "NULL";
@@ -233,7 +233,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
         if (i > virg)
         {
             str = loc.substr(virg, i - virg);
-         //   std::cout << "string is |" << str << "|" << std::endl;
+            std::cout << "string is |" << str << "|" << std::endl;
             strs.push_back(str);
         }
         virg = i + 1;
@@ -246,6 +246,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
             case 'p':
             {
                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
+        
                     if (nameof == "path" && loca.path == "NULL")
                     {
                         str = strs[x].substr(strs[x].find("path=")+5, strs[x].length());
@@ -264,12 +265,11 @@ void Config::parse_location(std::string &loc, const std::string &chars)
             }
             case 'r':
             {
-                std::string nameof  = strs[x].substr(0, strs[x].find_first_of("="));
+                std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
                 if (nameof == "root" && loca.root == "NULL")
                 {
                     str = strs[x].substr(strs[x].find("root=")+ 5, strs[x].length());
                     std::cout << "root :" << str << std::endl; 
-                    
                 }
             }
             case 'a':
@@ -286,18 +286,17 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 {
                     if (loca.allowedMethods == "NULL")
                     {
-                        str = strs[x].substr(strs[x].find("allowed-methods=") + 16, strs[x].length());
+                        str = strs[x].substr(strs[x].find("allowed-methods=")+ 16, strs[x].length());
                      //   std::cout << "allowed methods = |" << str << "|" << std::endl;
                     }
-                    
                 }
             }
-            case 'e':
+            case 'e':π∏
             {
                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
                 if (nameof == "extension" && loca.extension  == "NULL")
                 {
-                    str = strs[x].substr(strs[x].find("extension=") +10, strs[x].length());
+                    str = strs[x].substr(strs[x].find("extension=")+10, strs[x].length());
                 //    std::cout << "extension : " << str << std::endl;
                     loca.extension = str;
                 }
@@ -305,10 +304,11 @@ void Config::parse_location(std::string &loc, const std::string &chars)
             case 'b':
             {
                 std::string nameof = strs[x].substr(0, strs[x].find_first_of("="));
-                if (nameof == "bodysize_limt" && loca.bodySize == -1)
+                if (nameof == "bodysize_limit")
                 {
                     str = strs[x].substr(strs[x].find("bodysize_limit=") + 15, strs[x].length());
                     loca.bodySize = Help::atoi(str.c_str());
+                    std::cout << "body  size value : " << str << std::endl;
                 }
             }
             case 'i':
