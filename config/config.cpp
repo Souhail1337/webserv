@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:58:18 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/05/13 04:34:00 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:08:03 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void Config::parse_server(std::string &inputfile)
     
     std::string str2;
     std::string str3;
+    shhalmnlocation = 0;
     server serv;
     
     if(inputfile[0] == '[')
@@ -186,6 +187,7 @@ void Config::parse_server(std::string &inputfile)
                     loc = loc.substr(0,inputfile.length() - 1);
                   //  std::cout << "location :" << loc << std::endl;
                     parse_location(loc, ",");
+                    
                 }
             }
         }  
@@ -233,11 +235,12 @@ void Config::parse_location(std::string &loc, const std::string &chars)
         if (i > virg)
         {
             str = loc.substr(virg, i - virg);
-            std::cout << "string is |" << str << "|" << std::endl;
+          //  std::cout << "string is |" << str << "|" << std::endl;
             strs.push_back(str);
         }
         virg = i + 1;
     }
+    //std::cout << "shhal mn location " << shhalmnlocation << " ina server " << shhalmnserver << std::endl;
     int x = -1;
     while(++x < strs.size())
     {
@@ -250,7 +253,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                     if (nameof == "path" && loca.path == "NULL")
                     {
                         str = strs[x].substr(strs[x].find("path=")+5, strs[x].length());
-                        std::cout << "path = "<< str<< std::endl; 
+                       // std::cout << "path = "<< str<< std::endl; 
                         loca.path = str;
                     }
             }
@@ -260,7 +263,8 @@ void Config::parse_location(std::string &loc, const std::string &chars)
             if (nameof == "methods" && loca.method == "NULL")
                 {
                 str = strs[x].substr(strs[x].find("methods=") + 8, strs[x].length());
-                std::cout << "methods =" << str << std::endl;
+             //   std::cout << "methods =" << str << std::endl;
+                loca.method = str;
                }       
             }
             case 'r':
@@ -269,7 +273,9 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 if (nameof == "root" && loca.root == "NULL")
                 {
                     str = strs[x].substr(strs[x].find("root=")+ 5, strs[x].length());
-                    std::cout << "root :" << str << std::endl; 
+                //    std::cout << "root :" << str << std::endl;
+                    loca.root = str;
+                     
                 }
             }
             case 'a':
@@ -278,7 +284,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 if (nameof == "auto-index" && loca.autoind == "NULL")
                 {
                     str = strs[x].substr(strs[x].find("auto-index=")+ 11, strs[x].length());
-                    std::cout << "auto index is " << str << std::endl;
+                //    std::cout << "auto index is " << str << std::endl;
                     loca.autoind = str; 
                     
                 }
@@ -308,7 +314,7 @@ void Config::parse_location(std::string &loc, const std::string &chars)
                 {
                     str = strs[x].substr(strs[x].find("bodysize_limit=") + 15, strs[x].length());
                     loca.bodySize = Help::atoi(str.c_str());
-                    std::cout << "body  size value : " << str << std::endl;
+                //    std::cout << "body  size value : " << str << std::endl;
                 }
             }
             case 'i':
@@ -323,10 +329,34 @@ void Config::parse_location(std::string &loc, const std::string &chars)
             }
         }
     }
-
+                    srv[shhalmnserver].locations.push_back(loca);
 }
   
 Config::~Config()
 {
+
+    std::cout << "ZABI************************************************" << std::endl;
+    int i = -1;
+
+        std::cout << "path : "<< srv[0].locations[0].path + "  location " + srv[0].locations[0].root
+        + " extension " + srv[0].locations[0].extension + " auto " + srv[0].locations[0].autoind +
+        " body size " << srv[0].locations[0].bodySize;
+        
+        std::cout << "\n" << std::endl;
+        std::cout << "test \n" << std::endl;
+
+        
+        std::cout << "path : "<< srv[1].locations[0].path + "  location " + srv[1].locations[0].root
+        + " extension " + srv[1].locations[0].extension + " auto " + srv[1].locations[0].autoind +
+        " body size " << srv[1].locations[0].bodySize;
+
+        std::cout << "\n test \n" << std::endl;
+            std::cout << "path : "<< srv[1].locations[1].path + "  location " + srv[1].locations[1].root
+        + " extension " + srv[1].locations[1].extension + " auto " + srv[1].locations[1].autoind +
+        " body size " << srv[1].locations[1].bodySize;
+        
+
+        std::cout << std::endl;
+        std::cout << "END************************************************" << std::endl;
     
 }

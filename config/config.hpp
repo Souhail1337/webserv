@@ -6,7 +6,7 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:38:57 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/05/11 18:33:25 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/14 01:55:41 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ class Config
         void parse_location(std::string &loc,const std::string &chars);
         unsigned int shhalmnserver ; 
         unsigned int shhalmnlocation;
+        friend std::vector<Config::location> get_all_locations(const Config::server &s)
+        {
+            return (s.locations);
+        }
 };
 
 
