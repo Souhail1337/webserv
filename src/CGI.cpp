@@ -6,28 +6,37 @@
 /*   By: sel-fcht <sel-fcht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 23:05:12 by sel-fcht          #+#    #+#             */
-/*   Updated: 2022/05/26 16:25:17 by sel-fcht         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:59:19 by sel-fcht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include "CGI.hpp"
-
+#include "Request.hpp"
 #include <math.h>
 CGI::CGI()
 {
     ;
 }
 
+
+char **fill_args(std::string cgipath, std::string path)
+{
+    char **av = (char**)malloc(sizeof(char *) * 3);
+    av[0] = strdup(cgipath.c_str());
+    av[1] = strdup(path.c_str());
+    av[2] = (char *)0;
+    return av; 
+}
 static std::pair<std::string, std::map<std::string, std::string> > exec_file(std::string path, Request &res, std::string pathfile)
 {
-    char **args = fill_argd(cgiPath, path);
+    char **args = fill_args(pathfile, path);
     char **envp;
     if (res.getMethod() == "POST")
     {
         if (!(res.getHeader("Content-Type").empty())
-            setenv("CONTENT_TYPE",res.getHeader("CONTENT_TYPE"))
+            setenv("CONTENT_TYPE",res.getHeader("CONTENT_TYPE"));
     }
     setenv("REDIRECT_STATUS",true,1);
     setenv("QUERY_STRING",res.getQueryString(),1);
@@ -38,10 +47,10 @@ static std::pair<std::string, std::map<std::string, std::string> > exec_file(std
     setenv("SERVER_PROTOCOL",res.getProtocol(),1);
     setenv("SERVER_SOFTWARE",res.getServer(),1);
     setenv("GATEWAY_INTERFACE",res.getGateway(),1);
-    setenv("REMOTE_ADDR",res.getClient(),1);
-    setenv("REMOTE_PORT",res.getClientPort(),1);
-    setenv("REQUEST_URI",res.getRequestURI(),1);
-    setenv("DOCUMENT_ROOT",res.getDocumentRoot(),1);
+  //  setenv("REMOTE_ADDR",res.getClient(),1);
+  //  setenv("REMOTE_PORT",res.getClientPort(),1);
+  //  setenv("REQUEST_URI",res.getRequestURI(),1);
+   // setenv("DOCUMENT_ROOT",res.getDocumentRoot(),1);
     setenv("SCRIPT_FILENAME",pathfile,1);
     setenv("PATH_INFO",res.getPathInfo(),1);
     setenv("PATH_TRANSLATED",res.getPathTranslated(),1);
@@ -56,9 +65,10 @@ static std::pair<std::string, std::map<std::string, std::string> > exec_file(std
     setenv("HTTP_REFERER",res.getReferer(),1);
     setenv("HTTP_USER_AGENT",res.getUserAgent(),1);
     setenv("HTTP_COOKIE",res.getCookie(),1);
-    setenv("HTTP_CACHE_CONTROL",res.getCacheControl(),1);
-    setenv("HTTP_PRAGMA",res.getPragma(),1);
-    setenv("HTTP_DNT",res.getDNT(),1);
+  //  setenv("HTTP_CACHE_CONTROL",res.getCacheControl(),1);
+ //   setenv("HTTP_PRAGMA",res.getPragma(),1);
+  //  setenv("HTTP_DNT",res.getDNT(),1);
+    
     
         
 }
